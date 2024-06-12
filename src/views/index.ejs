@@ -1,0 +1,219 @@
+<%- include("partials/header.ejs") %>
+
+
+<main>
+
+  <!--
+    - #HERO SECTION
+  -->
+
+  <div class="hero">
+
+    <div class="container">
+
+      <div class="left">
+
+        <h1 class="h1">
+          Hi, I'm <b>Minka&nbsp;Daniel</b>.
+          <br>Backend Dev
+        </h1>
+
+        <p class="h3">
+          Specialized in <abbr title="Accessibility">backend</abbr>
+          and data engineer
+        </p>
+
+        <div class="btn-group">
+          <a href="#" class="btn btn-primary">Contact Me</a>
+          <a href="#" class="btn btn-secondary">About Me</a>
+        </div>
+
+      </div>
+
+      <div class="right">
+
+        <div class="pattern-bg"></div>
+        <div class="img-box">
+          <img src="/images/hero.png" alt="Julia Walker" class="hero-img">
+          <div class="shape shape-1"></div>
+          <div class="shape shape-2"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <div class="main">
+
+    <div class="container">
+
+      <!--BLOG SECTION-->
+      <div class="blog">
+
+        <h2 class="h2">Latest Blog Post</h2>
+        <div class="blog-card-group">
+          <% if(posts.length > 0){  %>
+          <% posts.forEach(post => { %>
+          <div class="blog-card">
+            <div class="blog-card-banner">
+              <img src="/images/<%= post.image %>" alt="<%= post.title %>" width="250" class="blog-banner-img">
+            </div>
+            <div class="blog-content-wrapper">
+              <button class="blog-topic text-tiny"><%= post.topic %></button>
+              <h3>
+                <a href="/posts/<%= post.id %>" class="h3">
+                  <%= post.under_topic %>
+                </a>
+              </h3>
+              <p class="blog-text">
+                <%= post.body %>
+              </p>
+              <div class="wrapper-flex">
+                <div class="profile-wrapper">
+                  <img src="/images/author.png" alt="<%= post.author %>" width="50">
+                </div>
+                <div class="wrapper">
+                  <a href="#" class="h4"><%= post.author_topics %></a>
+                  <p class="text-sm">
+                    <time datetime="<%= post.created_at.toISOString() %>"><%= post.created_at.toLocaleDateString() %></time>
+                    <span class="separator"></span>
+                    <ion-icon name="time-outline"></ion-icon>
+                    <time datetime="PT3M">3 min</time>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+          <% } else { %>
+            <p class="blog-text">
+              no blog available, try later
+            </p>
+            <%}%>
+        </div>
+        
+      
+        <button class="btn load-more">Load More</button>
+      
+      </div>
+      <!--
+        - ASIDE
+      -->
+
+      <div class="aside">
+
+        <div class="topics">
+
+          <h2 class="h2">Topics</h2>
+
+          <a href="#" class="topic-btn">
+            <div class="icon-box">
+              <ion-icon name="server-outline"></ion-icon>
+            </div>
+
+            <p>Database</p>
+          </a>
+
+          <a href="#" class="topic-btn">
+            <div class="icon-box">
+              <ion-icon name="accessibility-outline"></ion-icon>
+            </div>
+
+            <p>Accessibility</p>
+          </a>
+
+          <a href="#" class="topic-btn">
+            <div class="icon-box">
+              <ion-icon name="rocket-outline"></ion-icon>
+            </div>
+
+            <p>Web Performance</p>
+          </a>
+
+        </div>
+
+        <div class="tags">
+
+          <h2 class="h2">Tags</h2>
+
+          <div class="wrapper">
+
+            <button class="hashtag">#mongodb</button>
+            <button class="hashtag">#nodejs</button>
+            <button class="hashtag">#GraphQl</button>
+            <button class="hashtag">#Kubernertes</button>
+            <button class="hashtag">#Terraform</button>
+            <button class="hashtag">#Prometheus</button>
+            <button class="hashtag">#FastApi</button>
+            <button class="hashtag">#Aws</button>
+
+          </div>
+
+        </div>
+
+        <div class="contact">
+
+          <h2 class="h2">Let's Talk</h2>
+
+          <div class="wrapper">
+
+            <p>
+              Do you want to learn more about how I can help your company overcome problems? Let us have a
+              conversation.
+            </p>
+
+            <ul class="social-link">
+
+              <li>
+                <a href="#" class="icon-box discord">
+                  <ion-icon name="logo-discord"></ion-icon>
+                </a>
+              </li>
+
+              <li>
+                <a href="#" class="icon-box twitter">
+                  <ion-icon name="logo-twitter"></ion-icon>
+                </a>
+              </li>
+
+              <li>
+                <a href="#" class="icon-box facebook">
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </a>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+        <div class="newsletter">
+
+          <h2 class="h2">Newsletter</h2>
+
+          <div class="wrapper">
+
+            <p>
+              Subscribe to our newsletter to be among the first to keep up with the latest updates.
+            </p>
+
+            <form action="#">
+              <input type="email" name="email" placeholder="Email Address" required>
+
+              <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+  <%- include("partials/footer.ejs") %>
