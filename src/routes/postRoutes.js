@@ -18,7 +18,7 @@ router.get('/', homeRoute)
 router.get('/posts', getAllPostsController)
 
 // Get post by ID
-router.get('/posts/:post_id', getPostByIdController);
+router.get('/posts/:id', getPostByIdController);
 
 // Create a new post
 router.post('/posts', createPostController);

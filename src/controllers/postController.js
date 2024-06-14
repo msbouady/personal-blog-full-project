@@ -19,14 +19,23 @@ export const getAllPostsController = async (req, res) =>{
 }
 export const getPostByIdController = async (req, res) => {
   try {
-   
     const post = await getPostById(req.params.id);
-    res.render('post', { post });
+    const comments = await getCommentsByPostId(req.params.id);
+    console.log(req.params.id)
+    if (!post) {
+      return res.status(404).send('Post not found');
+    }
+
+    console.log('Post:', post);
+    console.log('Comments:', comments);
+
+    res.render('articles.ejs', { post: post, comments: comments });
   } catch (error) {
     console.error(error);
     res.status(500).send('Server error');
   }
 };
+
 
 export const homeRoute = async (req, res) => {
   try{
@@ -86,7 +95,7 @@ export const showComments = async (req, res) => {
   try {
     const post = await getPostById(req.params.id);
     const comments = await getCommentsByPostId(req.params.id);
-    res.render('comments', { post, comments });
+    res.render('comments', { post: post, comments: comments });
   } catch (error) {
     console.error(error);
     res.status(500).send('Server error');

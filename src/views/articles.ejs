@@ -11,21 +11,29 @@
 </head>
 <body>
   <div class="container">
-    <% const post = posts.find(post => post.post_id == req.params.id); %>
+  <% if (post) { %>
     <h1><%= post.topic %></h1>
     <p><%= post.body %></p>
     <ul id="postsList">
-      <% post.comments.forEach(comment => { %>
-        <li>
-          <small><%= comment.created_at %></small>
-          <p><%= comment.body %></p>
-          <small>By: <%= comment.username %></small>
-          <a class="edit" href="/edit/<%= comment._id %>">Edit</a>
-          <a class="delete" href="/api/comments/delete/<%= comment._id %>">Delete</a>
-        </li>
-      <% }); %>
+      <% if (comments && comments.length > 0) { %>
+        <% comments.forEach(comment => { %>
+          <li>
+            <small><%= comment.created_at %></small>
+            <p><%= comment.body %></p>
+            <small>By: <%= comment.username %></small>
+            <a class="edit" href="/edit/<%= comment._id %>">Edit</a>
+            <a class="delete" href="/api/comments/delete/<%= comment._id %>">Delete</a>
+          </li>
+        <% }); %>
+      <% } else { %>
+        <p>No comments available.</p>
+      <% } %>
     </ul>
-    <a id="newPostBtn" href="/new">New Comment</a>
-  </div>
+  <% } else { %>
+    <p>Post not found.</p>
+  <% } %>
+  <a id="newPostBtn" href="/new">New Comment</a>
+</div>
+
 </body>
 </html>
