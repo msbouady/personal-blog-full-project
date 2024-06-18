@@ -41,18 +41,18 @@ To install the project dependencies, follow these steps:
 
 3. Create a `.env` file in the root directory of your project and add your PostgreSQL credentials and desired port:
     ```sh
-GOOGLE_CLIENT_ID= your_key_id
-GOOGLE_CLIENT_SECRET=your_client_secret
-SESSION_SECRET=your_session_secret
-PG_USER=pg_name
-PG_HOST=pg_localhost
-PG_DATABASE=_pgname_
-PG_PASSWORD="_pgpassword_
-PG_PORT=_pgport_
-EMAIL_HOST=your-email-host
-EMAIL_PORT=your-email-port
-EMAIL_USER=your-email-user
-EMAIL_PASS=your-email-password
+    GOOGLE_CLIENT_ID= your_key_id
+    GOOGLE_CLIENT_SECRET=your_client_secret
+    SESSION_SECRET=your_session_secret
+    PG_USER=pg_name
+    PG_HOST=pg_localhost
+    PG_DATABASE=_pgname_
+    PG_PASSWORD="_pgpassword_"
+    PG_PORT=_pgport_
+    EMAIL_HOST=your-email-host
+    EMAIL_PORT=your-email-port
+    EMAIL_USER=your-email-user
+    EMAIL_PASS=your-email-password
     ```
 
 4. Set up the database:
