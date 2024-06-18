@@ -40,7 +40,7 @@ To install the project dependencies, follow these steps:
     ```
 
 3. Create a `.env` file in the root directory of your project and add your PostgreSQL credentials and desired port:
-    ```env
+    ```sh
 GOOGLE_CLIENT_ID= your_key_id
 GOOGLE_CLIENT_SECRET=your_client_secret
 SESSION_SECRET=your_session_secret
