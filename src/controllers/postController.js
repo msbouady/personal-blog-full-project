@@ -1,3 +1,4 @@
+import { use } from 'passport';
 import {
   getPostById,
   createPost,
@@ -6,6 +7,8 @@ import {
   getCommentsByPostId,
   addComment,
   getAllPosts,
+  addUser,
+  findUser,
 } from '../models/postModels.js';
 
 export const getAllPostsController = async (req, res) =>{
@@ -25,10 +28,6 @@ export const getPostByIdController = async (req, res) => {
     if (!post) {
       return res.status(404).send('Post not found');
     }
-
-    console.log('Post:', post);
-    console.log('Comments:', comments);
-
     res.render('articles.ejs', { post: post, comments: comments });
   } catch (error) {
     console.error(error);
@@ -121,3 +120,30 @@ export const addCommentController = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
+export const addUserController = async (req, res) => {
+  try {
+    const {username, email, password} = req.body;
+    await addUser(username, email, password);
+    console.log('user create')
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error user no create');
+  }
+}
+
+export const findUserController = async (req, res) =>{
+  const {username, password}= req.body;
+  try {
+    const user = await findUser(username, password);
+    if (user){
+      req.session.user = user;
+      sendResponse(res, 200, 'Logged in');
+    }else{
+      sendResponse(res, 401, 'Invalid credentials');
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('user not found')
+  }
+}
