@@ -4,9 +4,12 @@ import postRoutes from './routes/postRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import passport from '.config/passport.js';
+import session from 'express-session';
+
 
 dotenv.config(); 
-
+ 
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -16,6 +19,15 @@ const __dirname = path.dirname(__filename);
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use(session({
+  secret : SESSION_TOP_KEY,
+  resave: false,
+  saveUninitialized: true,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views')); 

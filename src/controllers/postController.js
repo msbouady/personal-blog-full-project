@@ -1,4 +1,3 @@
-import { use } from 'passport';
 import {
   getPostById,
   createPost,
@@ -8,7 +7,8 @@ import {
   addComment,
   getAllPosts,
   addUser,
-  findUser,
+  findUserByEmail,
+  getUserById,
 } from '../models/postModels.js';
 
 export const getAllPostsController = async (req, res) =>{
@@ -132,16 +132,28 @@ export const addUserController = async (req, res) => {
   }
 }
 
-export const findUserController = async (req, res) =>{
-  const {username, password}= req.body;
+export const findUserByEmailController = async (req, res) =>{
+  const email = req.body.email;
   try {
-    const user = await findUser(username, password);
+    const user = await findUserByEmail(email);
     if (user){
       req.session.user = user;
       sendResponse(res, 200, 'Logged in');
     }else{
       sendResponse(res, 401, 'Invalid credentials');
     }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('user not found')
+  }
+}
+
+export const getUserByIdControllerx = async (req, res) => {
+  const id = req.params.id;
+ 
+  try {
+     const resultat = await getUserById(id);
+     console.log('id');
   } catch (error) {
     console.error(error);
     res.status(500).send('user not found')
