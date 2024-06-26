@@ -4,7 +4,7 @@ import postRoutes from './routes/postRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
-import passport from '.config/passport.js';
+import passport from "../src/config/passport.js"
 import session from 'express-session';
 
 
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(session({
-  secret : SESSION_TOP_KEY,
+  secret : process.env.SESSION_TOP_KEY,
   resave: false,
   saveUninitialized: true,
 }));

@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import { 
     findUserByEmail, 
     getUserById, 
-    addUser } from "../models/userModel.js";
+    addUser } from "../models/postModels.js";
     
 dotenv.config();
 
