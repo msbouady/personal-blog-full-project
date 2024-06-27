@@ -39,7 +39,7 @@ router.delete('/posts/:post_id', deletePostController);
 router.get('/posts/:post_id/comments', showAddCommentForm);
 
 // Add a comment to a post
-router.post('/posts/:post_id/comments', addCommentController);
+router.post('/comments/:id', addCommentController);
 
 router.post(
   "/login",
@@ -50,7 +50,7 @@ router.post(
 );
 
 router.post("/register", createUserController);
-router.post('/login.ejs', connexionUserController);
+router.post('/login', connexionUserController);
 
 
 export default router;

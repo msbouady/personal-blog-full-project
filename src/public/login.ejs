@@ -1,7 +1,7 @@
 <%- include('partials/header') %>
  
  <div class="wrapper">
-    <form action="./login" method="post">
+    <form action="/login" method="post">
       <h1>Login</h1>
       <div class="input-box">
         <input type="text" placeholder="Username" required>
@@ -16,15 +16,15 @@
         <a href="#">Forgot Password</a>
       </div>
       <button type="submit" class="btn">Login</button>
-      <div class="google-login-btn">
-        <a class="btn btn-block" href="/auth/google" role="button">
-          <i class="fab fa-google"></i>
-          Sign In with Google
-        </a>
-      </div>
-      <div class="register-link">
-        <p>Dont have an account? <a href="register.html">Register</a></p>
-      </div>
     </form>
+    <div class="google-login-btn">
+      <a class="btn btn-block" href="/auth/google" role="button">
+        <i class="fab fa-google"></i>
+        Sign In with Google
+      </a>
+    </div>
+    <div class="register-link">
+      <p>Dont have an account? <a href="register.html">Register</a></p>
+    </div>
   </div>
   <%- include('partials/footer') %>

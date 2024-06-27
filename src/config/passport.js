@@ -27,11 +27,12 @@ passport.use(
 );
 
 passport.use(
+  "google",
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: `http://localhost:${process.env.MY_PORT}/auth/google/articles.ejs`,
+      callbackURL: `http://localhost:${process.env.MY_PORT}/auth/google/index`,
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     async (accessToken, refreshToken, profile, done) => {

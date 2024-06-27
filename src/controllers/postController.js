@@ -11,10 +11,11 @@ import {
   getUserById,
 } from '../models/postModels.js';
 
+const API_URL = "http://localhost:4000";
 export const getAllPostsController = async (req, res) =>{
   try{
     const results = await getAllPosts();
-    res.status(200).json(results);
+    return results;
   }catch(error){
     console.error(error);
     res.status(500).send('Server error like')
@@ -113,8 +114,9 @@ export const showAddCommentForm = async (req, res) => {
 export const addCommentController = async (req, res) => {
   try {
     const { comment } = req.body;
-    await addComment(req.params.id, comment);
-    res.redirect(`/posts/${req.params.id}/comments`);
+    const post_id = req.params.id;
+    await addComment(post_id, 1,comment);
+    res.redirect(`/posts/${post_id}`);
   } catch (error) {
     console.error(error);
     res.status(500).send('Server error');

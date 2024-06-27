@@ -2,7 +2,7 @@
 
 
   <div class="wrapper">
-    <form action="register" method="post">
+    <form action="/register" method="post">
       <h1>Register</h1>
       <div class="input-box">
         <input type="text" placeholder="Username" name="Username" required>
@@ -20,15 +20,15 @@
         <label><input type="checkbox">Remember Me</label>
       </div>
       <button type="submit" class="btn">Register</button>
-      <div class="google-login-btn">
-        <a class="btn btn-block" href="/auth/google" role="button">
-          <i class="fab fa-google"></i>
-          Sign Up with Google
-        </a>
-      </div>
-      <div class="register-link">
-        <p>I have an account? <a href="login.html">Login</a></p>
-      </div>
     </form>
+    <div class="google-login-btn">
+      <a class="btn btn-block" href="/auth/google" role="button">
+        <i class="fab fa-google"></i>
+        Sign Up with Google
+      </a>
+    </div>
+    <div class="register-link">
+      <p>I have an account? <a href="login.html">Login</a></p>
+    </div>
   </div>
   <%- include('partials/footer') %>
