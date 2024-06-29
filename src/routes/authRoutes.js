@@ -7,12 +7,12 @@ const router = express.Router();
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/articles.ejs",
-    failureRedirect: "/login.ejs",
+    successRedirect: "/index",
+    failureRedirect: "/login",
   })
 );
 
-router.post("/register.ejs", registerUser);
+router.post("/register", registerUser);
 
 router.get(
   "/auth/google",
@@ -22,10 +22,10 @@ router.get(
 );
 
 router.get(
-  "/auth/google/articles.ejs",
+  "/auth/google/index",
   passport.authenticate("google", {
-    successRedirect: "/articles.ejs",
-    failureRedirect: "/login.ejs",
+    successRedirect: "/index",
+    failureRedirect: "/login",
   })
 );
 

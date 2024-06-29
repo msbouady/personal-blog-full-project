@@ -1,9 +1,4 @@
 import express from 'express';
-import  passport  from 'passport';
-import {
-  connexionUserController,
-  createUserController,
-  } from "../controllers/userController.js";
 import {
   getPostByIdController,
   createPostController,
@@ -13,13 +8,18 @@ import {
   addCommentController,
   getAllPostsController,
   homeRoute,
+  localLogin,
+  googleLogin,
+  googleCallback,
+  createUserController,
 } from '../controllers/postController.js';
-
+import { isAuthenticated } from '../middlewares/errorHandle.js';
 
 const router = express.Router();
 // home
 
-router.get('/', homeRoute)
+router.get('/', homeRoute);
+router.get("/index", homeRoute);
 // Get All Post
 router.get('/posts', getAllPostsController)
 
@@ -39,18 +39,16 @@ router.delete('/posts/:post_id', deletePostController);
 router.get('/posts/:post_id/comments', showAddCommentForm);
 
 // Add a comment to a post
-router.post('/comments/:id', addCommentController);
+router.post('/comments/:id', isAuthenticated, addCommentController);
 
-router.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/articles.ejs",
-    failureRedirect: "/login.ejs",
-  })
-);
-
+// inscription connexion
 router.post("/register", createUserController);
-router.post('/login', connexionUserController);
+//router.post('/login', connexionUserController);
+//authgoogle
+router.post("/login", localLogin);
 
+router.get("/auth/google", googleLogin);
+
+router.get( "/auth/google/index",googleCallback);
 
 export default router;

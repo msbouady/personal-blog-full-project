@@ -11,6 +11,7 @@ import {
 dotenv.config();
 
 passport.use(
+  'local',
   new LocalStrategy(async (email, password, done) => {
     try {
       const user = await findUserByEmail(email);
@@ -40,7 +41,7 @@ passport.use(
         console.log(profile);
         let user = await findUserByEmail(profile.email);
         if (!user) {
-          user = await addUser(profile.email, "google");
+          user = await addUser(profile.name ,profile.email, "google");
         }
         return done(null, user);
       } catch (err) {

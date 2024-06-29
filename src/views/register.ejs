@@ -1,19 +1,19 @@
-<%- include('partials/header') %>
+<%- include('partialsConnect/header') %>
 
 
   <div class="wrapper">
     <form action="/register" method="post">
       <h1>Register</h1>
       <div class="input-box">
-        <input type="text" placeholder="Username" name="Username" required>
+        <input type="text" placeholder="Username" name="username" required>
         <i class='bx bxs-user'></i>
       </div>
       <div class="input-box">
-        <input type="text" placeholder="Email" name="Email" required>
+        <input type="text" placeholder="Email" name="email" required>
         <i class='bx bxs-user'></i>
       </div>
       <div class="input-box">
-        <input type="password" placeholder="Password" name="Email" required>
+        <input type="password" placeholder="Password" name="password" required>
         <i class='bx bxs-lock-alt' ></i>
       </div>
       <div class="remember-forgot">
@@ -28,7 +28,7 @@
       </a>
     </div>
     <div class="register-link">
-      <p>I have an account? <a href="login.html">Login</a></p>
+      <p>I have an account? <a href="/login">Login</a></p>
     </div>
   </div>
-  <%- include('partials/footer') %>
+  <%- include('partialsConnect/footer') %>
