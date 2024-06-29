@@ -38,16 +38,15 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        console.log(profile);
         let user = await findUserByEmail(profile.email);
         if (!user) {
-          user = await addUser(profile.name ,profile.email, "google");
+          user = await addUser(profile.name, profile.email, "google");
         }
         return done(null, user);
       } catch (err) {
         return done(err);
       }
-    }
+    }    
   )
 );
 
