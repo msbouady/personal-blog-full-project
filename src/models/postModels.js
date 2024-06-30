@@ -112,25 +112,48 @@ export const addUser = async (username, email, password) =>{
     throw error;
   }
 }
-// get user by email
+
+export const getUserIdByComment = async (id, post_id) => {
+  try {
+    const userIdResult = await pool.query(queries.getUserIdByComment, [id, post_id]);
+    const userId = userIdResult.rows[0];
+    return userId;
+  }catch(error){
+    console.error('get userid by comments : ', error);
+    throw error;
+  }
+}
+
 export const findUserByEmail = async (email) => {
   try {
     const userResult = await pool.query(queries.findUserByEmail, [email]);
-    return userResult.rows[0];
+    const user = userResult.rows[0];
+    if (!user) {
+      return null;
+    }
+    user.id = user.user_id; 
+    return user;
   } catch (error) {
     console.error('find email user : ', error);
     throw error;
   }
-}
+};
+
 
 // get user by id
 
 export const getUserById = async (id) => {
   try {
-    const resultat = await pool.query(queries.getUserById, [id]);
-    return resultat.rows;
+    const userResult = await pool.query(queries.getUserById, [id]);
+    const user = userResult.rows[0];
+    if (!user) {
+      return null;
+    }
+    user.id = user.user_id;
+    return user;
   } catch (error) {
-    console.error('user id get : ', error);
+    console.error('get user by id : ', error);
     throw error;
   }
-}
+};
+

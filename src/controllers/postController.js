@@ -9,6 +9,7 @@ import {
   addUser,
   findUserByEmail,
   getUserById,
+  getUserIdByComment,
 } from '../models/postModels.js';
 import bcrypt from "bcrypt";
 import passport from "../config/passport.js";
@@ -26,15 +27,20 @@ export const getAllPostsController = async (req, res) =>{
     res.status(500).send('Server error like')
   }
 }
+
 export const getPostByIdController = async (req, res) => {
   try {
-    const post = await getPostById(req.params.id);
-    const comments = await getCommentsByPostId(req.params.id);
-    console.log(req.params.id)
-    if (!post) {
-      return res.status(404).send('Post not found');
-    }
-    res.render('articles.ejs', { post: post, comments: comments });
+    const user_id = req.user.id;
+    const post_id = req.params.id;
+
+    const post = await getPostById(post_id);
+    const comments = await getCommentsByPostId(post_id);
+
+    res.render('articles.ejs', {
+      post: post,
+      comments: comments,
+      user_id : user_id,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send('Server error');
@@ -121,7 +127,7 @@ export const addCommentController = async (req, res) => {
     const { comment } = req.body;
     const post_id = req.params.id;
     const user_id = req.user.id;
-    
+
     await addComment(post_id, user_id,comment);
     res.redirect(`/posts/${post_id}`);
   } catch (error) {
@@ -253,3 +259,21 @@ export const googleCallback = passport.authenticate("google", {
   successRedirect: "/index",
   failureRedirect: "/login",
 });
+
+export const getLoginPage = async (req, res) => {
+  try {
+    res.render("login");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
+
+export const getRegisterPage = async (req, res) => {
+  try {
+    res.render("register");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};

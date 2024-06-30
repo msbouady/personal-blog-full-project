@@ -21,14 +21,18 @@
               <small><%= comment.created_at %></small>
               <p><%= comment.body %></p>
               <small>By: <%= comment.username %></small>
+              <% if (comment.user_id === user_id) { %>
               <a class="edit" href="/edit/<%= comment._id %>">Edit</a>
               <a class="delete" href="/api/comments/delete/<%= comment._id %>">Delete</a>
+              <% }%>
             </li>
           <% }); %>
         <% } else { %>
           <p>No comments available.</p>
         <% } %>
       </ul>
+    <% } %>
+    
       <form action="/comments/<%= post.post_id %>" method="POST">
         <textarea name="comment" placeholder="Add a comment..." required></textarea>
         <button type="submit">Submit</button>

@@ -12,6 +12,8 @@ import {
   googleLogin,
   googleCallback,
   createUserController,
+  getLoginPage,
+  getRegisterPage,
 } from '../controllers/postController.js';
 import { isAuthenticated } from '../middlewares/errorHandle.js';
 
@@ -41,6 +43,10 @@ router.get('/posts/:post_id/comments', showAddCommentForm);
 // Add a comment to a post
 router.post('/comments/:id', isAuthenticated, addCommentController);
 
+//get login
+router.get('/login', getLoginPage);
+// get register
+router.get('/register', getRegisterPage);
 // inscription connexion
 router.post("/register", createUserController);
 //router.post('/login', connexionUserController);
