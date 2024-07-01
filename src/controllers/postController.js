@@ -13,6 +13,9 @@ import {
 } from '../models/postModels.js';
 import bcrypt from "bcrypt";
 import passport from "../config/passport.js";
+import nodemailer from "nodemailer";
+import { emailConfig } from '../config';
+
 
 const API_URL = "http://localhost:4000";
 const saltRounds = process.env.DB_SALT;
@@ -127,8 +130,32 @@ export const addCommentController = async (req, res) => {
     const { comment } = req.body;
     const post_id = req.params.id;
     const user_id = req.user.id;
+    const userEmail =req.user.email
 
-    await addComment(post_id, user_id,comment);
+    const post_ = await getPostById(post_id);
+    const under_topic = post_.under_topic;
+    await addComment(post_id, user_id, comment);
+
+    // my email auth configuration
+    const transporter = nodemailer.createTransport(emailConfig);
+
+    // option email to send 
+    const mailOptions = {
+      from: emailConfig.auth.user,
+      to: userEmail,
+      subject: 'MY COMMENT ON PERSONNAL BLOG',
+      text: `A new comment left by you on post . Tile: ${under_topic}`
+    };
+
+    // send email
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+
     res.redirect(`/posts/${post_id}`);
   } catch (error) {
     console.error(error);

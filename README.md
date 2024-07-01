@@ -60,6 +60,17 @@ To install the project dependencies, follow these steps:
     npx sequelize-cli db:migrate
     npx sequelize-cli db:seed:all
     ```
+5. config email transporter:
+    ```sh
+    const emailConfig = {
+    service: 'gmail',
+    auth: {
+      user: 'your-own-mail@gmail.com',
+      pass: 'your-own-password',
+    }
+  };
+  
+    ```
 ## Usage
 
 Start the application, run:

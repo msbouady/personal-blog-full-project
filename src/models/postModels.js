@@ -82,24 +82,27 @@ export const addComment = async (postId, userId, commentContent) => {
   }
 };
 // delete comment
-export const deleteComment = async (userId, commentId) => {
+export const deleteComment = async (idComment) => {
   try {
-    
-    const verifyCommentOwner = await pool.query(queries.getCommentByUserId, [commentId, userId]);
-
-    if (verifyCommentOwner.rowCount > 0) {
-      const deleteResult = await pool.query(queries.deleteComment, [commentId]);
-      if (deleteResult.rowCount > 0) {
-       console.log("comment delete")
-      } 
-    } else {
-      return alert('error');
-    }
+    const resultDeleteComment = await pool.query(queries.deleteComment, [idComment]);
+    return resultDeleteComment;
   } catch (error) {
-    console.error('delete comment : ', error);
-   throw error;
+    console.error(error);
+    throw error;
   }
-};
+}
+
+// get comment by id
+
+export const getCommentById = async (idComment) => {
+  try{
+    const resultGetComment = await pool.query(queries.getCommentById, [idComment]);
+    return resultGetComment;
+  }catch(error){
+    console.error(error);
+    throw error;
+  }
+}
 
 // Models for USER
 // create user
