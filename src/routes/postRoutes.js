@@ -14,6 +14,7 @@ import {
   createUserController,
   getLoginPage,
   getRegisterPage,
+  deleteCommentController,
 } from '../controllers/postController.js';
 import { isAuthenticated } from '../middlewares/errorHandle.js';
 
@@ -42,7 +43,8 @@ router.get('/posts/:post_id/comments', showAddCommentForm);
 
 // Add a comment to a post
 router.post('/comments/:id', isAuthenticated, addCommentController);
-
+// delete comment 
+router.delete('/comments/:id', deleteCommentController);
 //get login
 router.get('/login', getLoginPage);
 // get register

@@ -10,6 +10,7 @@ import {
   findUserByEmail,
   getUserById,
   getUserIdByComment,
+  deleteComment,
 } from '../models/postModels.js';
 import bcrypt from "bcrypt";
 import passport from "../config/passport.js";
@@ -162,6 +163,22 @@ export const addCommentController = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
+export const deleteCommentController = async (req, res) => {
+  const commentId = req.params.id;
+  try {
+    const comment = await getCommentById(commentId); 
+    const postId = comment.post_id;
+
+    await deleteComment(commentId); 
+
+    res.redirect(`/posts/${postId}`); 
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error comment no delete');
+  }
+}
+
 
 export const addUserController = async (req, res) => {
   try {
