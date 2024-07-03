@@ -9,8 +9,10 @@ import {
   addUser,
   findUserByEmail,
   getUserById,
-  getUserIdByComment,
   deleteComment,
+  udpadteComment,
+  getCommentById,
+  getUsernameByComments,
 } from '../models/postModels.js';
 import bcrypt from "bcrypt";
 import passport from "../config/passport.js";
@@ -163,6 +165,56 @@ export const addCommentController = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+export const getUpdatePage = async (req, res) => {
+  const idComment = req.params.id;
+  try {
+    const comments = await getCommentById(idComment); // Utilise la variable idComment au lieu de id
+    const commentsDate = comments.created_at;
+    const commentsBody = comments.body;
+    const commentsIdPost = comments.post_id;
+    const commentsIdUser = comments.user_id;
+
+    const getUsername = await getUsernameByComments(commentsIdUser, commentsIdPost, idComment);
+
+    res.render('modifArticle.ejs', {
+      commentsBody: commentsBody,
+      getUsername: getUsername,
+      commentsDate: commentsDate,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error updating comment');
+  }
+};
+
+export const updateCommentPage = async (req, res) => {
+  const idComment = req.params.id;
+  try {
+    const updatedContent = req.body.content;
+    await udpadteComment(idComment, updatedContent); 
+
+    res.redirect(`/posts/${postId}`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error updating comment');
+  }
+};
+export const updateCommentController = async (req, res) => {
+  const idComment = req.params.id;
+  const contentComment = req.body;
+
+  try {
+    const comment = await getCommentById(idComment); 
+    const postId = comment.post_id;
+
+    await udpadteComment(idComment, contentComment);
+    res.redirect(`/posts/${postId}`); 
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error comment no delete');
+  }
+};
 
 export const deleteCommentController = async (req, res) => {
   const commentId = req.params.id;
@@ -177,7 +229,7 @@ export const deleteCommentController = async (req, res) => {
     console.error(error);
     res.status(500).send('Server error comment no delete');
   }
-}
+};
 
 
 export const addUserController = async (req, res) => {
@@ -189,7 +241,7 @@ export const addUserController = async (req, res) => {
     console.error(error);
     res.status(500).send('Server error user no create');
   }
-}
+};
 
 export const findUserByEmailController = async (req, res) =>{
   const email = req.body.email;
@@ -203,9 +255,9 @@ export const findUserByEmailController = async (req, res) =>{
     }
   } catch (error) {
     console.error(error);
-    res.status(500).send('user not found')
+    res.status(500).send('user not found');
   }
-}
+};
 
 export const getUserByIdControllerx = async (req, res) => {
   const id = req.params.id;
@@ -215,9 +267,9 @@ export const getUserByIdControllerx = async (req, res) => {
      console.log('id');
   } catch (error) {
     console.error(error);
-    res.status(500).send('user not found')
-  }
-}
+    res.status(500).send('user not found');
+  };
+};
 
 export const connexionUserController = async (req, res) => {
   const email = req.body.email;
@@ -227,13 +279,13 @@ export const connexionUserController = async (req, res) => {
     const userExist = await findUserByEmail(email);
     if (!userExist) {
       res.redirect('/login'); // password or login incorrect
-      console.log('password or login incorrect')
+      console.log('password or login incorrect');
     } else {
       bcrypt.compare(password, userExist.password, (err, result) => {
         if (err) {
           console.error("Error comparing passwords:", err);
           res.redirect('/login'); // password or login incorrect
-          console.log('password or login incorrects')
+          console.log('password or login incorrects');
         } else if (result) {
           req.login(userExist, (err) => {
             if (err) {
@@ -247,7 +299,7 @@ export const connexionUserController = async (req, res) => {
           });
         } else {
           res.redirect('/login');
-          console.log('password or login incorrect not')
+          console.log('password or login incorrect not');
         }
       });
     }
@@ -255,7 +307,7 @@ export const connexionUserController = async (req, res) => {
     console.error('error');
     console.log(err);
     res.redirect('/login');
-    console.log('password or login incorrect yes')
+    console.log('password or login incorrect yes');
   }
 };
 
@@ -278,7 +330,7 @@ try {
           res.redirect('/register');
       }else{
           console.log('Successful');
-          res.redirect('/index')
+          res.redirect('/index');
       }
   });
  }

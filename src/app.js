@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import passport from "../src/config/passport.js"
 import session from 'express-session';
+import methodOverride from 'method-override';
 
 
 dotenv.config(); 
@@ -19,6 +20,8 @@ const __dirname = path.dirname(__filename);
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use(methodOverride('_method'));
 
 app.use(session({
   secret : process.env.SESSION_TOP_KEY,

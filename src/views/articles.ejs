@@ -22,8 +22,8 @@
               <p><%= comment.body %></p>
               <small>By: <%= comment.username %></small>
               <% if (comment.user_id === user_id) { %>
-              <a class="edit" href="/edit/<%= comment._id %>">Edit</a>
-              <a class="delete" href="/api/comments/delete/<%= comment._id %>">Delete</a>
+              <a class="edit" href="/api/comments/update/<%= comment.comment_id %>">Edit</a>
+              <a class="delete" href='/comments/delete/<%= comment.comment_id %>'>Delete</a>
               <% }%>
             </li>
           <% }); %>
@@ -32,7 +32,7 @@
         <% } %>
       </ul>
     <% } %>
-    
+
       <form action="/comments/<%= post.post_id %>" method="POST">
         <textarea name="comment" placeholder="Add a comment..." required></textarea>
         <button type="submit">Submit</button>

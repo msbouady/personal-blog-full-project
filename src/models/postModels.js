@@ -91,7 +91,26 @@ export const deleteComment = async (idComment) => {
     throw error;
   }
 }
-
+// getUsernameByComments
+export const getUsernameByComments = async (userId, postId, commentId) => {
+  try {
+    const result = await pool.query(queries.getUsernameByComments, [userId, postId, commentId]);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+// update comment 
+export const udpadteComment = async (idComment, contentComment) => {
+  try {
+    const resultComment = await pool.query(queries.updateComment, [idComment, contentComment]);
+    return resultComment;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 // get comment by id
 
 export const getCommentById = async (idComment) => {

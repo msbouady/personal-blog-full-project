@@ -15,6 +15,8 @@ import {
   getLoginPage,
   getRegisterPage,
   deleteCommentController,
+  updateCommentController,
+  getUpdatePage,
 } from '../controllers/postController.js';
 import { isAuthenticated } from '../middlewares/errorHandle.js';
 
@@ -40,11 +42,14 @@ router.delete('/posts/:post_id', deletePostController);
 
 // Get comments for a post
 router.get('/posts/:post_id/comments', showAddCommentForm);
-
+// Get Update page
+router.get('/api/comments/update/:id', getUpdatePage); 
+// Update comment
+router.put('/comments/update/:id', updateCommentController);
+// Delete comment
+router.delete('/comments/delete/:id', deleteCommentController);
 // Add a comment to a post
 router.post('/comments/:id', isAuthenticated, addCommentController);
-// delete comment 
-router.delete('/comments/:id', deleteCommentController);
 //get login
 router.get('/login', getLoginPage);
 // get register
