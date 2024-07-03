@@ -17,7 +17,7 @@ import {
 import bcrypt from "bcrypt";
 import passport from "../config/passport.js";
 import nodemailer from "nodemailer";
-import { emailConfig } from '../config';
+import { emailConfig } from '../config/request.js';
 
 
 const API_URL = "http://localhost:4000";
